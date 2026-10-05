@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Simple steps to complete the app registration task.">
+<title>Worker Task — App Registration</title>
+<style>
+:root{--bg:#0b0d14;--card:#151824;--text:#f7f8fb;--muted:#aeb5c7;--accent:#8b7cff;--green:#35d49a;--amber:#ffd76b;--border:rgba(255,255,255,.1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+.wrap{width:min(680px,92%);margin:0 auto;padding:32px 0 56px}
+h1{font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.1;margin:0 0 8px;letter-spacing:-.03em}
+.sub{color:var(--muted);margin:0 0 24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-bottom:14px}
+.vpn{border-color:rgba(255,193,7,.45);background:rgba(255,193,7,.08)}
+.vpn b{color:var(--amber)}
+.step{display:flex;gap:14px;align-items:flex-start}
+.num{flex:0 0 34px;height:34px;border-radius:10px;background:rgba(139,124,255,.18);color:#d9d5ff;display:grid;place-items:center;font-weight:800}
+.step h3{margin:0 0 2px;font-size:1.05rem}
+.step p{margin:0;color:var(--muted)}
+.btn{display:block;text-align:center;text-decoration:none;color:#fff;background:var(--accent);padding:14px;border-radius:12px;font-weight:800;margin:6px 0 20px}
+.code-box{text-align:center}
+.code{display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding:12px 16px;border:1px dashed var(--accent);border-radius:12px;background:#0c0e15;font:800 1.1rem ui-monospace,Menlo,monospace}
+.code button{border:0;background:var(--accent);color:#fff;padding:7px 12px;border-radius:8px;font-weight:700;cursor:pointer}
+#copied{color:var(--green);min-height:22px;margin:6px 0 0;font-size:.9rem}
+h2{font-size:1.3rem;margin:28px 0 12px}
+ul{margin:0;padding:0;list-style:none}
+li{padding:10px 0;border-bottom:1px solid var(--border)}
+li:last-child{border:0}
+li:before{content:"✓ ";color:var(--green);font-weight:800}
+footer{color:#737b8f;font-size:.85rem;text-align:center;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>App Registration Task</h1>
+<p class="sub">Follow the steps in order. Earn a $1 bonus.</p>
+
+<div class="card vpn">
+  <b>⚠️ Step 0 — Check your location first</b>
+  <p style="margin:6px 0 0">This task must be done from the <b>USA or Germany</b>. If you are not in one of these countries, <b>turn on a VPN and connect to a USA or Germany server before you start</b>. Keep the VPN on until the task is finished.</p>
+</div>
+
+<a class="btn" href="https://phygitals.onelink.me/1HmK/ixhzimzk" target="_blank" rel="noopener">Download the App ↗</a>
+
+<div class="card step"><div class="num">1</div><div><h3>Download the app</h3><p>Use the button above (App Store). Only use this link.</p></div></div>
+<div class="card step"><div class="num">2</div><div><h3>Register with Gmail</h3><p>You must be a new user with no existing account.</p></div></div>
+<div class="card step"><div class="num">3</div><div><h3>Open the Rewards tab</h3><p>Enter the referral code below.</p></div></div>
+
+<div class="card code-box">
+  <h3 style="margin:0">Referral code</h3>
+  <div class="code"><span id="code">e406a482d8da</span><button onclick="copyCode()">Copy</button></div>
+  <p id="copied"></p>
+</div>
+
+<div class="card step"><div class="num">4</div><div><h3>Check the code turns green</h3><p>Green means it was applied. You then get the $1 bonus.</p></div></div>
+
+<h2>Proof to submit</h2>
+<div class="card">
+  <ul>
+    <li>Screenshot of the app downloaded from the App Store</li>
+    <li>The Gmail address you registered with</li>
+    <li>Screenshot of the Rewards tab with the green referral code</li>
+    <li>Screenshot of the $1 bonus</li>
+  </ul>
+</div>
+<p class="sub">Make sure screenshots are clear and don't show unrelated personal info.</p>
+
+<footer>Follow the task provider's current rules and requirements.</footer>
+</div>
+
+<script>
+function copyCode(){
+  var c=document.getElementById('code').textContent;
+  navigator.clipboard.writeText(c).then(function(){
+    var m=document.getElementById('copied');
+    m.textContent='Code copied!';
+    setTimeout(function(){m.textContent=''},1800);
+  });
+}
+</script>
+</body>
+</html>
