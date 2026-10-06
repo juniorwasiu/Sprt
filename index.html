@@ -278,11 +278,15 @@ li:first-child {
   padding: 30px 16px;
   max-width: 520px;
   margin: 20px auto 0;
-  animation: fadeIn 0.4s ease-out;
+  animation: viewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+.task-view-container {
+  animation: viewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes viewFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -440,18 +444,19 @@ footer {
 
 /* Loading skeleton */
 .loading-view {
-  min-height: 280px;
+  min-height: 320px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: var(--muted);
   font-weight: 600;
-  gap: 12px;
+  gap: 16px;
 }
 
 .spinner {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border: 3px solid rgba(139, 124, 255, 0.2);
   border-top-color: var(--accent);
   border-radius: 50%;
@@ -466,6 +471,7 @@ footer {
 <body>
 
 <main class="wrap" id="main-container">
+  <!-- SKELETON / LOADING STATE -->
   <div class="loading-view" id="loading-state">
     <div class="spinner"></div>
     <span>Loading...</span>
@@ -486,7 +492,7 @@ footer {
     <p class="download-desc">Tap the button below to continue downloading the app and claim your registration bonus.</p>
 
     <div class="download-card">
-      <a id="hero-download-btn" class="btn btn-pulse btn-download-hero" href="https://phygitals.onelink.me/1HmK/o45tvhth" target="_blank" rel="noopener">
+      <a id="hero-download-btn" class="btn btn-pulse btn-download-hero" href="https://phygitals.onelink.me/1HmK/xpc4jlwy" target="_blank" rel="noopener">
         <span>Continue to Download</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -514,7 +520,7 @@ footer {
   </div>
 
   <!-- VIEW 2: ORIGINAL APP REGISTRATION TASK VIEW -->
-  <div id="view-task" style="display: none;">
+  <div id="view-task" class="task-view-container" style="display: none;">
     <div class="header">
       <h1 id="task-title-text">App Registration Task</h1>
       <p class="sub" id="task-sub-text">Follow the steps in order. Earn a $1 bonus.</p>
@@ -525,7 +531,7 @@ footer {
       <p id="vpn-warning-text" style="margin:6px 0 0">This task must be done from the <b>USA or Germany</b>. If you are not in one of these countries, <b>turn on a VPN and connect to a USA or Germany server before you start</b>. Keep the VPN on until the task is finished.</p>
     </div>
 
-    <a id="task-download-btn" class="btn btn-pulse" href="https://phygitals.onelink.me/1HmK/o45tvhth" target="_blank" rel="noopener">Download the App ↗</a>
+    <a id="task-download-btn" class="btn btn-pulse" href="https://phygitals.onelink.me/1HmK/xpc4jlwy" target="_blank" rel="noopener">Download the App ↗</a>
 
     <div class="card step">
       <div class="num">1</div>
@@ -554,7 +560,7 @@ footer {
     <div class="card code-box">
       <h3 style="margin:0; font-size:1.1rem">Referral code</h3>
       <div class="code">
-        <span id="code">e406a482d8da</span>
+        <span id="code">d15a567f50d0</span>
         <button id="copy-btn" onclick="copyCode()">Copy</button>
       </div>
       <p id="copied"></p>
@@ -586,11 +592,16 @@ footer {
   <a class="admin-link" href="./admin" title="Admin Settings">⚙ Admin Control</a>
 </footer>
 
+<!-- Firebase 10 Compat SDK for real-time Firestore sync -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="./js/app-config.js"></script>
 <script>
 let redirectTimer = null;
 
 function renderPage(config) {
+  if (!config) return;
+
   const loadingEl = document.getElementById('loading-state');
   const viewDownload = document.getElementById('view-download');
   const viewTask = document.getElementById('view-task');
@@ -598,7 +609,7 @@ function renderPage(config) {
   if (loadingEl) loadingEl.style.display = 'none';
 
   // Apply download URLs
-  const downloadUrl = config.downloadUrl || 'https://phygitals.onelink.me/1HmK/o45tvhth';
+  const downloadUrl = config.downloadUrl || 'https://phygitals.onelink.me/1HmK/xpc4jlwy';
   const heroBtn = document.getElementById('hero-download-btn');
   const taskBtn = document.getElementById('task-download-btn');
   if (heroBtn) heroBtn.href = downloadUrl;
@@ -611,29 +622,42 @@ function renderPage(config) {
   }
 
   // Apply task title/subtitle if customized
-  if (config.taskTitle) document.getElementById('task-title-text').textContent = config.taskTitle;
-  if (config.taskSubtitle) document.getElementById('task-sub-text').textContent = config.taskSubtitle;
-  if (config.vpnWarning) document.getElementById('vpn-warning-text').textContent = config.vpnWarning;
+  const titleEl = document.getElementById('task-title-text');
+  const subEl = document.getElementById('task-sub-text');
+  const vpnEl = document.getElementById('vpn-warning-text');
+  if (titleEl && config.taskTitle) titleEl.textContent = config.taskTitle;
+  if (subEl && config.taskSubtitle) subEl.textContent = config.taskSubtitle;
+  if (vpnEl && config.vpnWarning) vpnEl.textContent = config.vpnWarning;
 
   // Mode Switching
-  if (config.mode === 'download') {
+  const currentMode = config.mode === 'task' ? 'task' : 'download';
+  if (currentMode === 'download') {
     if (viewTask) viewTask.style.display = 'none';
     if (viewDownload) viewDownload.style.display = 'flex';
 
     // Handle auto-redirect if enabled
     if (config.autoRedirect) {
       startAutoRedirect(downloadUrl, config.autoRedirectSeconds || 3);
+    } else {
+      stopAutoRedirect();
     }
   } else {
     // Mode is 'task'
+    stopAutoRedirect();
     if (viewDownload) viewDownload.style.display = 'none';
     if (viewTask) viewTask.style.display = 'block';
-    
-    if (redirectTimer) {
-      clearInterval(redirectTimer);
-      redirectTimer = null;
-    }
   }
+}
+
+function stopAutoRedirect() {
+  if (redirectTimer) {
+    clearInterval(redirectTimer);
+    redirectTimer = null;
+  }
+  const progressWrap = document.getElementById('redirect-progress-wrap');
+  const textEl = document.getElementById('redirect-text');
+  if (progressWrap) progressWrap.style.display = 'none';
+  if (textEl) textEl.style.display = 'none';
 }
 
 function startAutoRedirect(url, seconds) {
@@ -690,15 +714,16 @@ function copyCode() {
   });
 }
 
-// Initialize on DOM load
+// Initialize on DOM load: wait for authoritative config to prevent any mode flicker/glitch
 document.addEventListener('DOMContentLoaded', async () => {
-  // Listen for config changes (fires immediately with cached/default)
+  // Listen for subsequent real-time changes
   window.appConfig.onConfigChange((cfg) => {
     renderPage(cfg);
   });
 
-  // Load fresh config (remote cloud sync + static config.json)
-  await window.appConfig.loadConfig();
+  // Wait for initial authoritative Firebase load
+  const initialConfig = await window.appConfig.whenReady();
+  renderPage(initialConfig);
 });
 </script>
 </body>
