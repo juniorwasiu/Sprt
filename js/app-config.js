@@ -5,7 +5,7 @@
 
 const DEFAULT_CONFIG = {
   mode: "download", // 'download' | 'task'
-  downloadUrl: "https://phygitals.onelink.me/1HmK/ixhzimzk",
+  downloadUrl: "https://phygitals.onelink.me/1HmK/o45tvhth",
   referralCode: "e406a482d8da",
   autoRedirect: false,
   autoRedirectSeconds: 3,
