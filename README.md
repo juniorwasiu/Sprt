@@ -7,7 +7,7 @@ A high-conversion web application with real-time mode switching between **"Conti
 ## 🚀 Features
 
 - **Dynamic Dual Modes**:
-  - **Continue to Download Mode**: Clean, modern, high-converting hero screen with a direct CTA leading to the target App Store / OneLink URL (`https://phygitals.onelink.me/1HmK/o45tvhth`). Supports optional countdown auto-redirect.
+  - **Continue to Download Mode**: Clean, modern, high-converting hero screen with a direct CTA leading to the target App Store / OneLink URL (`https://phygitals.onelink.me/1HmK/ixhzimzk`). Supports optional countdown auto-redirect.
   - **App Registration Task Mode**: Full step-by-step worker guide with VPN location requirement notice (USA/Germany), step 1-4 instructions, 1-click referral code copy box (`e406a482d8da`), and proof submission checklist.
 - **Admin Control Dashboard (`/admin` / `admin.html`)**:
   - Protected with PIN (Default: `admin123`).

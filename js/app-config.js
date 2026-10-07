@@ -6,8 +6,8 @@
 
 const DEFAULT_CONFIG = {
   mode: "download", // 'download' | 'task'
-  downloadUrl: "https://phygitals.onelink.me/1HmK/xpc4jlwy",
-  referralCode: "d15a567f50d0",
+  downloadUrl: "https://phygitals.onelink.me/1HmK/ixhzimzk",
+  referralCode: "e406a482d8da",
   autoRedirect: false,
   autoRedirectSeconds: 3,
   taskTitle: "App Registration Task",
